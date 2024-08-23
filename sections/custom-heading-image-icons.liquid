@@ -1,0 +1,301 @@
+{%- style -%}
+          .firebee-benefits-section {
+            max-width: 100%;
+            background: #FBFCFB;
+            padding-top: 100px;
+          }
+
+          .firebee-benefits-header {
+            text-align: center;
+          }
+
+          .firebee-benefits-header h2 {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 72px;
+            line-height: 82px;
+            color: #3F3631;
+            margin: 0 0 25px 0;
+          }
+
+          .firebee-benefits-header h3 {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 36px;
+            color: #3F3631;
+            margin: 0 0 15px 0;
+          }
+
+          .firebee-benefits-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1370px;
+            margin: 0 auto;
+          }
+
+          .firebee-benefits-image-box {
+            max-width: 598px;
+          }
+
+          .firebee-benefits-image-box img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+          }
+
+          .firebee-benefits-list-box {
+            max-width: 763px;
+          }
+
+          .firebee-benefits-list {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+          }
+
+          .firebee-benefits-list:not(:last-child) {
+              margin-bottom: 35px;
+          }
+
+          .firebee-benefits-list img {
+            max-width: 40px;
+            height: 40px;
+          }
+
+          .firebee-benefits-list p {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 26px;
+            line-height: 1.5em;
+            color: #3F3631;
+            margin: 0;
+          }
+
+        .firebee-benefits-list p span {
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-fill-color: transparent;
+          font-weight: 700;
+        }
+
+          @media screen and (max-width: 1400px) {
+          .firebee-benefits-section {
+            padding: 100px 10px 0 10px;
+          }
+
+          .firebee-benefits-content {
+            justify-content: space-evenly;
+          }
+
+          .firebee-benefits-image-box {
+            max-width: 400px;
+          }
+
+          .firebee-benefits-header h2 {
+            font-size: 52px;
+            line-height: 62px;
+          }
+        }
+
+        @media screen and (max-width: 1126px) {
+          .firebee-benefits-section {
+            padding: 80px 10px 0 10px;
+          }
+
+          .firebee-benefits-content {
+            justify-content: space-between;
+            align-items: flex-end;
+          }
+
+          .firebee-benefits-image-box {
+            max-width: 300px;
+          }
+
+          .firebee-benefits-header h3 {
+            font-size: 20px;
+            line-height: 30px;
+          }
+
+          .firebee-benefits-list img {
+            max-width: 30px;
+            height: 30px;
+          }
+
+          .firebee-benefits-list p {
+            font-size: 22px;
+            line-height: 1.5em;
+          }
+        }
+
+        @media screen and (max-width: 924px) {
+          .firebee-benefits-content {
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+          }
+
+          .firebee-benefits-image-box {
+            max-width: 50%;
+          }
+
+          .firebee-benefits-list-box {
+            max-width: 100%;
+          }
+      }
+
+        @media screen and (max-width: 767px) {
+          .firebee-benefits-section {
+            padding: 30px 25px 30px 25px;
+          }
+
+          .firebee-benefits-header h2 {
+            font-size: 36px;
+            line-height: 46px;
+            margin: 0 0 15px 0;
+          }
+
+          .firebee-benefits-header h3 {
+            font-size: 18px;
+            line-height: 24px;
+          }
+
+          .firebee-benefits-image-box {
+            max-width: 100%;
+          }
+
+          .firebee-benefits-list {
+            align-items: flex-start;
+            gap: 15px;
+          }
+
+          .firebee-benefits-list:not(:last-child) {
+            margin-bottom: 20px;
+          }
+
+          .firebee-benefits-list p {
+            font-size: 18px;
+          }
+
+          .firebee-benefits-list img {
+            max-width: 40px;
+            height: 40px;
+          }
+      }
+  }
+{%- endstyle -%}
+
+<section class="firebee-benefits-section">
+  <div class="firebee-benefits-container {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="firebee-benefits-header">
+      <h2>{{ section.settings.heading }}</h2>
+      <h3>{{ section.settings.subheading }}</h3>
+    </div>
+    <div class="firebee-benefits-content">
+      <div class="firebee-benefits-image-box">
+        <img src="{{ section.settings.main_image | img_url: 'master' }}" class="main-image">
+      </div>
+      <div class="firebee-benefits-list-box">
+        {% for block in section.blocks %}
+          <div class="firebee-benefits-list">
+            <img src="{{ block.settings.icon_list_image | img_url: 'master' }}" class="icon-list-image">
+            <p>
+              {{ block.settings.icon_list_prefix }}
+              {% if block.settings.icon_span_text != blank %}
+                <span style="background-image: linear-gradient(90deg, {{ block.settings.icon_gradient_start }} 0%, {{ block.settings.icon_gradient_end }} 100%);">
+                  {{ block.settings.icon_span_text }}
+                </span>
+              {% endif %}
+              {{ block.settings.icon_list_suffix }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Heading and Images",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What will Firebee do for me?"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Firebee will help you gently nudge yourself into a different mental state."
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_list_image",
+          "label": "Icon List Image"
+        },
+        {
+          "type": "text",
+          "id": "icon_list_prefix",
+          "label": "Text Before Gradient Text",
+          "default": "Can't sleep? Turn on the"
+        },
+        {
+          "type": "text",
+          "id": "icon_span_text",
+          "label": "Gradient Text",
+          "default": "deep sleep"
+        },
+        {
+          "type": "color",
+          "id": "icon_span_color",
+          "label": "Color",
+          "default": "#ff0000"
+        },
+        {
+          "type": "color",
+          "id": "icon_gradient_start",
+          "label": "Gradient Start Color",
+          "default": "#2E034B"
+        },
+        {
+          "type": "color",
+          "id": "icon_gradient_end",
+          "label": "Gradient End Color",
+          "default": "#002182"
+        },
+        {
+          "type": "text",
+          "id": "icon_list_suffix",
+          "label": "Text After Gradient Text",
+          "default": "signal"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Heading and Images"
+    }
+  ]
+}
+{% endschema %}

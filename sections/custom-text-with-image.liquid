@@ -1,0 +1,75 @@
+{%- style -%}
+    .custom-text-image-section {
+      padding: 120px 10px 0 10px;
+      text-align: center;
+    }
+
+    .custom-text-image-section-heading {
+      font-style: normal;
+      font-weight: 300;
+      color: #3F3631;
+      margin: 0 0 30px 0;
+    }
+
+    .custom-text-image-box {
+      max-width: 824px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .custom-text-image-box img {
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+    .custom-text-image-section {
+      padding: 30px 10px 0 10px;
+    }
+
+    .custom-text-image-section-heading {
+      margin: 0 0 25px 0;
+    }
+  }
+{%- endstyle -%}
+
+<section class="custom-text-image-section">
+  <div class="custom-text-image-container {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <h2 class="custom-heading custom-text-image-section-heading">{{ section.settings.section_title }}</h2>
+    <div class="custom-text-image-box">
+      <img src="{{ section.settings.image | img_url: 'original' }}" alt="{{ section.settings.image_alt | escape }}">
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom text with image",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "What's in the box?"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "default": "Firebee device in box"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom text with image"
+    }
+  ]
+}
+{% endschema %}

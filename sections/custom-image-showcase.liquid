@@ -1,0 +1,119 @@
+{%- style -%}
+  .image-showcase-section {
+    padding: 0 10px 35px 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto 40px auto;
+    border-bottom: 1px solid #C4C4C4;
+  }
+
+  .showcase-heading {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #3F3631;
+    margin: 0 0 20px 0;
+  }
+
+  .showcase-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 940px;
+    padding: 0 30px;
+  }
+
+  .showcase-image-item {
+    max-width: {{ section.settings.image_width | default: 100 }}px;
+  }
+
+  .showcase-image-item img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+  .image-showcase-section {
+    padding: 0 10px 20px 10px;
+    margin: 0 10px 20px 10px;
+  }
+
+    .showcase-images {
+      padding: 0 10px;
+      gap: 15px;
+    }
+
+    .showcase-image-item {
+      max-width: 90px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="image-showcase-section">
+  <div class="image-showcase-container {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <h3 class="showcase-heading">{{ section.settings.heading_text }}</h3>
+    <div class="showcase-images">
+      {% for block in section.blocks %}
+        <div class="showcase-image-item">
+          <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image_alt | escape }}">
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Image Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "Featured On"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image Width",
+      "min": 100,
+      "max": 300,
+      "step": 5,
+      "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt Text",
+          "default": "Brand logo"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Showcase"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,119 @@
+{%- style -%}
+    .custom-icon-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 10px 80px 10px;
+      background-color: #fff;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .custom-icon-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .custom-icon-item img {
+      display: block;
+      max-width: {{ section.settings.image_width | default: 40 }}px;
+      height: auto;
+    }
+
+    .custom-icon-item h3 {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 30px;
+      line-height: 45px;
+      margin: 0;
+      color: #3F3631;
+    }
+
+    @media (max-width: 768px) {
+    .custom-icon-list {
+      padding: 0 10px 40px 10px;
+    }
+
+    .custom-icon-item img {
+      max-width: 30px;
+    }
+
+    .custom-icon-item h3 {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="custom-icon-list {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+  {% for block in section.blocks %}
+    <div class="custom-icon-item">
+      <img src="{{ block.settings.icon_image | img_url: 'master' }}" alt="{{ block.settings.image_alt }}">
+      <h3>{{ block.settings['icon-heading'] }}</h3>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom Icon List",
+  "settings": [
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image Width",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "default": 40
+   }
+  ],
+  "blocks": [
+    {
+      "type": "icon_item",
+      "name": "Icon Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt Text",
+          "default": "Icon List Image Alt"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "icon-heading",
+          "label": "Text",
+          "default": "Icon list Heading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Icon List",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "icon_item"
+        },
+        {
+          "type": "icon_item"
+        },
+        {
+          "type": "icon_item"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3
+}
+{% endschema %}
